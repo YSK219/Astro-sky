@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -19,10 +21,13 @@
 
 html,
 body {
+
     margin: 0;
     padding: 0;
-    background: #02030a;
+
+    background: #010207;
     color: white;
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -39,22 +44,33 @@ body {
 ========================= */
 
 header {
-    padding: 16px 18px;
-    background: #080b16;
-    border-bottom: 1px solid #1d2438;
+
+    padding: 15px 18px;
+
+    background: #070a14;
+
+    border-bottom:
+        1px solid #1b2338;
 }
 
 h1 {
+
     margin: 0;
+
     font-size: 24px;
+
     font-weight: 600;
 }
 
 .subtitle {
+
     margin-top: 4px;
-    color: #8f9bb5;
+
+    color: #8d98b0;
+
     font-size: 12px;
 }
+
 
 /* =========================
    SKY
@@ -64,19 +80,21 @@ h1 {
 
     position: relative;
 
-    height: 58vh;
-    min-height: 400px;
+    height: 55vh;
+
+    min-height: 390px;
 
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at 50% 45%,
-            #18254a 0%,
-            #080e24 45%,
-            #02030a 100%
+            circle at 50% 35%,
+            #17244b 0%,
+            #080d22 42%,
+            #010207 100%
         );
 }
+
 
 /* horizon */
 
@@ -87,49 +105,61 @@ h1 {
     left: 0;
     right: 0;
 
-    bottom: 15%;
+    bottom: 12%;
 
-    border-top: 1px solid
-        rgba(255,255,255,0.15);
+    border-top:
+        1px solid
+        rgba(255,255,255,0.2);
 }
 
-/* direction labels */
+
+/* directions */
 
 .direction {
 
     position: absolute;
 
-    font-size: 12px;
-
     color:
         rgba(255,255,255,0.65);
 
-    transform:
-        translate(-50%, -50%);
+    font-size: 12px;
+
+    z-index: 5;
 }
 
 .north {
-    top: 8%;
+
+    top: 5%;
     left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+.south {
+
+    bottom: 5%;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
 }
 
 .east {
+
     top: 50%;
     right: 3%;
 }
 
-.south {
-    bottom: 8%;
-    left: 50%;
-}
-
 .west {
+
     top: 50%;
     left: 3%;
 }
 
+
 /* =========================
-   STARS
+   STAR
 ========================= */
 
 .star {
@@ -144,8 +174,51 @@ h1 {
         0 0 5px white;
 
     transition:
-        transform 0.15s linear;
+        left 0.2s linear,
+        top 0.2s linear;
 }
+
+
+/* =========================
+   DSO
+========================= */
+
+.dso {
+
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    border:
+        2px solid #65aaff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 14px
+        rgba(80,160,255,0.8);
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 10;
+}
+
+.dso-label {
+
+    position: absolute;
+
+    left: 14px;
+    top: -7px;
+
+    white-space: nowrap;
+
+    font-size: 10px;
+
+    color: #8ec5ff;
+}
+
 
 /* =========================
    TARGET
@@ -158,30 +231,21 @@ h1 {
     left: 50%;
     top: 45%;
 
+    width: 90px;
+    height: 90px;
+
     transform:
         translate(-50%, -50%);
 
-    width: 76px;
-    height: 76px;
-
     border:
         1px solid
-        rgba(100,180,255,0.8);
+        rgba(100,180,255,0.7);
 
     border-radius: 50%;
 
-    box-shadow:
-        0 0 18px
-        rgba(80,160,255,0.45);
+    z-index: 20;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 11px;
-
-    color: #9fc9ff;
+    pointer-events: none;
 }
 
 .target::before {
@@ -190,8 +254,14 @@ h1 {
 
     position: absolute;
 
-    width: 8px;
-    height: 8px;
+    left: 50%;
+    top: 50%;
+
+    width: 6px;
+    height: 6px;
+
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
 
@@ -201,53 +271,59 @@ h1 {
         0 0 12px #8fc5ff;
 }
 
+
 /* =========================
    INFO
 ========================= */
 
 .info {
 
-    padding: 16px;
+    padding: 15px;
 
-    background: #080b16;
+    background: #070a14;
 
     border-top:
-        1px solid #1d2438;
+        1px solid #1b2338;
 }
 
-.info h2 {
+.section-title {
 
-    margin:
-        0 0 12px;
+    margin-bottom: 10px;
 
-    font-size: 18px;
+    font-size: 17px;
+
+    font-weight: 600;
 }
 
-.data {
+
+.grid {
 
     display: grid;
 
     grid-template-columns:
         1fr 1fr;
 
-    gap: 9px;
+    gap: 8px;
 }
+
 
 .card {
 
-    padding: 11px;
+    padding: 10px;
 
-    background: #111625;
+    background: #101522;
 
-    border-radius: 10px;
+    border-radius: 9px;
 }
+
 
 .label {
 
-    font-size: 10px;
+    color: #8490a8;
 
-    color: #8994ac;
+    font-size: 10px;
 }
+
 
 .value {
 
@@ -256,56 +332,99 @@ h1 {
     font-size: 15px;
 }
 
+
+/* =========================
+   SELECT
+========================= */
+
+select {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background: #171e31;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
 button {
 
     width: 100%;
 
-    margin-top: 14px;
+    margin-top: 10px;
 
     padding: 14px;
 
     border: 0;
 
-    border-radius: 10px;
+    border-radius: 9px;
 
     background: #315cff;
 
     color: white;
 
-    font-size: 16px;
-
-    font-weight: 500;
+    font-size: 15px;
 }
 
-button:active {
 
-    transform: scale(0.98);
-
-}
+/* =========================
+   STATUS
+========================= */
 
 .status {
 
     margin-top: 10px;
 
-    text-align: center;
+    padding: 10px;
 
-    color: #8994ac;
+    border-radius: 8px;
+
+    background: #101522;
+
+    color: #9ba6bd;
+
+    text-align: center;
 
     font-size: 11px;
 }
 
+.good {
+    color: #74d99a;
+}
+
+.bad {
+    color: #ff8e8e;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header>
 
-    <h1>🌌 Astro-sky</h1>
+<h1>🌌 Astro-sky</h1>
 
-    <div class="subtitle">
-        Astrophotography Sky Guide
-    </div>
+<div class="subtitle">
+Astrophotography Sky Guide
+</div>
 
 </header>
 
@@ -316,163 +435,353 @@ button:active {
 
 <div id="sky">
 
-    <div class="horizon"></div>
+<div class="horizon"></div>
 
-    <div class="direction north">
-        N
-    </div>
+<div class="direction north">
+N
+</div>
 
-    <div class="direction east">
-        E
-    </div>
+<div class="direction east">
+E
+</div>
 
-    <div class="direction south">
-        S
-    </div>
+<div class="direction south">
+S
+</div>
 
-    <div class="direction west">
-        W
-    </div>
+<div class="direction west">
+W
+</div>
 
-    <div class="target">
-        M31
-    </div>
+<div class="target"></div>
 
 </div>
 
 
 <!-- =========================
-     INFORMATION
+     CONTROL
 ========================= -->
 
 <div class="info">
 
-    <h2>📡 撮影情報</h2>
-
-    <div class="data">
-
-        <div class="card">
-
-            <div class="label">
-                現在時刻
-            </div>
-
-            <div
-                class="value"
-                id="time">
-                --:--:--
-            </div>
-
-        </div>
+<div class="section-title">
+🔭 撮影対象
+</div>
 
 
-        <div class="card">
+<select id="targetSelect">
 
-            <div class="label">
-                方位角
-            </div>
+<option value="M31">
+M31 アンドロメダ銀河
+</option>
 
-            <div
-                class="value"
-                id="heading">
-                --°
-            </div>
+<option value="M42">
+M42 オリオン大星雲
+</option>
 
-        </div>
+<option value="M45">
+M45 プレアデス星団
+</option>
 
+<option value="M8">
+M8 干潟星雲
+</option>
 
-        <div class="card">
+<option value="M20">
+M20 三裂星雲
+</option>
 
-            <div class="label">
-                緯度
-            </div>
+<option value="M16">
+M16 わし星雲
+</option>
 
-            <div
-                class="value"
-                id="latitude">
-                --.-----
-            </div>
+<option value="M17">
+M17 オメガ星雲
+</option>
 
-        </div>
+<option value="M27">
+M27 あれい星雲
+</option>
 
+<option value="M57">
+M57 リング星雲
+</option>
 
-        <div class="card">
+<option value="NGC7000">
+NGC7000 北アメリカ星雲
+</option>
 
-            <div class="label">
-                経度
-            </div>
+<option value="Veil">
+網状星雲
+</option>
 
-            <div
-                class="value"
-                id="longitude">
-                --.-----
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="label">
-                対象天体
-            </div>
-
-            <div class="value">
-                M31
-                アンドロメダ銀河
-            </div>
-
-        </div>
+</select>
 
 
-        <div class="card">
+<div class="grid">
 
-            <div class="label">
-                ステータス
-            </div>
+<div class="card">
 
-            <div
-                class="value"
-                id="status">
-                未取得
-            </div>
+<div class="label">
+現在時刻
+</div>
 
-        </div>
+<div
+class="value"
+id="time">
+--
+</div>
 
-    </div>
-
-
-    <button
-        onclick="startSensors()">
-
-        📍 現在地・方位を取得
-
-    </button>
+</div>
 
 
-    <div class="status"
-         id="message">
+<div class="card">
 
-        「現在地・方位を取得」を
-        タップしてください
+<div class="label">
+スマホ方位
+</div>
 
-    </div>
+<div
+class="value"
+id="heading">
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+天体高度
+</div>
+
+<div
+class="value"
+id="altitude">
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+天体方位
+</div>
+
+<div
+class="value"
+id="azimuth">
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+緯度
+</div>
+
+<div
+class="value"
+id="latitude">
+--
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="label">
+経度
+</div>
+
+<div
+class="value"
+id="longitude">
+--
+</div>
+
+</div>
+
+</div>
+
+
+<button onclick="startAstroSky()">
+
+📍 現在地・方位・天体位置を取得
+
+</button>
+
+
+<div
+class="status"
+id="status">
+
+準備完了
+
+</div>
+
 
 </div>
 
 
 <script>
 
-/* ==================================================
-   Astro-sky
-   Sensor / Location System
-================================================== */
+/* =================================================
+   ASTRO-SKY ENGINE
+================================================= */
+
+
+/* =========================
+   DSO DATABASE
+
+   RA = hours
+   Dec = degrees
+========================= */
+
+const objects = {
+
+M31: {
+    name: "M31 アンドロメダ銀河",
+    ra: 0.712,
+    dec: 41.27
+},
+
+M42: {
+    name: "M42 オリオン大星雲",
+    ra: 5.588,
+    dec: -5.45
+},
+
+M45: {
+    name: "M45 プレアデス星団",
+    ra: 3.783,
+    dec: 24.12
+},
+
+M8: {
+    name: "M8 干潟星雲",
+    ra: 18.063,
+    dec: -24.38
+},
+
+M20: {
+    name: "M20 三裂星雲",
+    ra: 18.043,
+    dec: -23.03
+},
+
+M16: {
+    name: "M16 わし星雲",
+    ra: 18.313,
+    dec: -13.78
+},
+
+M17: {
+    name: "M17 オメガ星雲",
+    ra: 18.346,
+    dec: -16.17
+},
+
+M27: {
+    name: "M27 あれい星雲",
+    ra: 19.993,
+    dec: 22.72
+},
+
+M57: {
+    name: "M57 リング星雲",
+    ra: 18.893,
+    dec: 33.03
+},
+
+NGC7000: {
+    name: "NGC7000 北アメリカ星雲",
+    ra: 20.983,
+    dec: 44.52
+},
+
+Veil: {
+    name: "網状星雲",
+    ra: 20.75,
+    dec: 30.7
+}
+
+};
+
+
+/* =========================
+   BRIGHT STAR DATABASE
+========================= */
+
+const starsData = [
+
+["Sirius",6.752,-16.72],
+["Betelgeuse",5.919,7.41],
+["Rigel",5.242,-8.20],
+["Vega",18.615,38.78],
+["Deneb",20.690,45.28],
+["Altair",19.846,8.87],
+["Arcturus",14.261,19.18],
+["Capella",5.278,45.99],
+["Procyon",7.655,5.23],
+["Aldebaran",4.599,16.51],
+["Spica",13.420,-11.16],
+["Antares",16.490,-26.43],
+["Regulus",10.140,11.97],
+["Pollux",7.756,28.03],
+["Castor",7.577,31.89],
+["Fomalhaut",22.961,-29.62],
+["Polaris",2.530,89.26],
+["Achernar",1.628,-57.24],
+["Canopus",6.399,-52.70],
+["Capella",5.278,45.99]
+
+];
+
+
+/* =========================
+   STATE
+========================= */
+
+let latitude = null;
+let longitude = null;
+
+let heading = 0;
+
+let selectedTarget =
+    "M31";
+
+
+/* =========================
+   DOM
+========================= */
 
 const sky =
     document.getElementById("sky");
 
+const targetSelect =
+    document.getElementById(
+        "targetSelect"
+    );
+
+const timeElement =
+    document.getElementById("time");
+
 const headingElement =
     document.getElementById("heading");
+
+const altitudeElement =
+    document.getElementById("altitude");
+
+const azimuthElement =
+    document.getElementById("azimuth");
 
 const latitudeElement =
     document.getElementById("latitude");
@@ -483,313 +792,740 @@ const longitudeElement =
 const statusElement =
     document.getElementById("status");
 
-const messageElement =
-    document.getElementById("message");
+
+/* =========================
+   STAR ELEMENTS
+========================= */
+
+const starElements = [];
 
 
-/* ==================================================
-   STAR FIELD
-================================================== */
+starsData.forEach(
 
-const stars = [];
+    function(starData) {
 
-for (let i = 0; i < 220; i++) {
+        const el =
+            document.createElement("div");
 
-    const star =
-        document.createElement("div");
+        el.className =
+            "star";
 
-    star.className = "star";
+        const size =
+            2.0 +
+            Math.random() * 2.5;
 
-    const x =
-        Math.random() * 100;
+        el.style.width =
+            size + "px";
 
-    const y =
-        Math.random() * 100;
+        el.style.height =
+            size + "px";
 
-    const size =
-        Math.random() * 2.2 + 0.8;
+        el.style.opacity =
+            0.5 +
+            Math.random() * 0.5;
 
-    star.style.left =
-        x + "%";
+        sky.appendChild(el);
 
-    star.style.top =
-        y + "%";
+        starElements.push({
+            el: el,
+            data: starData
+        });
 
-    star.style.width =
-        size + "px";
+    }
 
-    star.style.height =
-        size + "px";
-
-    star.style.opacity =
-        Math.random() * 0.75 + 0.25;
-
-    sky.appendChild(star);
-
-    stars.push({
-        element: star,
-        x: x,
-        y: y
-    });
-}
-
-
-/* ==================================================
-   CLOCK
-================================================== */
-
-function updateTime() {
-
-    const now =
-        new Date();
-
-    document
-        .getElementById("time")
-        .textContent =
-        now.toLocaleTimeString(
-            "ja-JP"
-        );
-}
-
-setInterval(
-    updateTime,
-    1000
 );
 
-updateTime();
+
+/* =========================
+   DSO ELEMENT
+========================= */
+
+const dsoElement =
+    document.createElement("div");
+
+dsoElement.className =
+    "dso";
+
+const dsoLabel =
+    document.createElement("div");
+
+dsoLabel.className =
+    "dso-label";
+
+dsoElement.appendChild(
+    dsoLabel
+);
+
+sky.appendChild(
+    dsoElement
+);
 
 
-/* ==================================================
-   LOCATION
-================================================== */
+/* =================================================
+   JULIAN DATE
+================================================= */
 
-function getLocation() {
+function julianDate(date) {
 
-    if (!navigator.geolocation) {
+    return (
+        date.getTime() / 86400000
+    ) + 2440587.5;
 
-        messageElement.textContent =
-            "このブラウザでは位置情報を取得できません";
+}
+
+
+/* =================================================
+   GMST
+================================================= */
+
+function gmst(date) {
+
+    const jd =
+        julianDate(date);
+
+    const T =
+        (jd - 2451545.0)
+        / 36525.0;
+
+    let value =
+        280.46061837
+        +
+        360.98564736629
+        *
+        (jd - 2451545.0)
+        +
+        0.000387933 * T * T
+        -
+        T * T * T / 38710000;
+
+    value =
+        ((value % 360) + 360)
+        % 360;
+
+    return value;
+
+}
+
+
+/* =================================================
+   RA / DEC → ALT / AZ
+================================================= */
+
+function equatorialToHorizontal(
+    ra,
+    dec,
+    lat,
+    lon,
+    date
+) {
+
+    const lst =
+        (
+            gmst(date)
+            + lon
+        ) / 15;
+
+    const hourAngle =
+        lst - ra;
+
+    const H =
+        hourAngle * 15;
+
+    const latRad =
+        lat *
+        Math.PI / 180;
+
+    const decRad =
+        dec *
+        Math.PI / 180;
+
+    const hRad =
+        H *
+        Math.PI / 180;
+
+    const sinAlt =
+        Math.sin(latRad)
+        *
+        Math.sin(decRad)
+        +
+        Math.cos(latRad)
+        *
+        Math.cos(decRad)
+        *
+        Math.cos(hRad);
+
+    const altitude =
+        Math.asin(
+            sinAlt
+        ) *
+        180 / Math.PI;
+
+
+    let azimuth =
+        Math.atan2(
+
+            Math.sin(hRad),
+
+            Math.cos(hRad)
+            *
+            Math.sin(latRad)
+            -
+            Math.tan(decRad)
+            *
+            Math.cos(latRad)
+
+        )
+        *
+        180 / Math.PI;
+
+
+    azimuth =
+        (azimuth + 180)
+        % 360;
+
+
+    return {
+
+        altitude:
+            altitude,
+
+        azimuth:
+            azimuth
+
+    };
+
+}
+
+
+/* =================================================
+   STAR MAP POSITION
+================================================= */
+
+function drawStar(
+    star,
+    index,
+    date
+) {
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+        return;
+    }
+
+    const result =
+        equatorialToHorizontal(
+
+            star.data[1],
+            star.data[2],
+
+            latitude,
+            longitude,
+
+            date
+        );
+
+
+    const alt =
+        result.altitude;
+
+    const az =
+        result.azimuth;
+
+
+    /*
+       地平線下は非表示
+    */
+
+    if (alt <= 0) {
+
+        star.el.style.display =
+            "none";
 
         return;
 
     }
+
+
+    star.el.style.display =
+        "block";
+
+
+    /*
+       空の表示
+
+       azimuth:
+       0 = 北
+       90 = 東
+       180 = 南
+       270 = 西
+
+       altitude:
+       0 = 地平線
+       90 = 天頂
+    */
+
+    const x =
+        50 +
+        (
+            (az - heading + 360)
+            % 360
+            - 180
+        )
+        / 180
+        * 45;
+
+
+    const y =
+        88 -
+        alt * 0.78;
+
+
+    star.el.style.left =
+        x + "%";
+
+    star.el.style.top =
+        y + "%";
+
+}
+
+
+/* =================================================
+   DRAW DSO
+================================================= */
+
+function drawTarget(date) {
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+        return;
+    }
+
+
+    const object =
+        objects[selectedTarget];
+
+
+    const result =
+        equatorialToHorizontal(
+
+            object.ra,
+            object.dec,
+
+            latitude,
+            longitude,
+
+            date
+        );
+
+
+    const alt =
+        result.altitude;
+
+    const az =
+        result.azimuth;
+
+
+    altitudeElement.textContent =
+        alt.toFixed(1) + "°";
+
+
+    azimuthElement.textContent =
+        az.toFixed(1) + "°";
+
+
+    dsoLabel.textContent =
+        selectedTarget;
+
+
+    /*
+       地平線下
+    */
+
+    if (alt <= 0) {
+
+        dsoElement.style.display =
+            "none";
+
+        statusElement.textContent =
+            object.name
+            +
+            " は現在地平線下です";
+
+        statusElement.className =
+            "status bad";
+
+        return;
+
+    }
+
+
+    dsoElement.style.display =
+        "block";
+
+
+    const relativeAz =
+        (
+            az - heading + 360
+        ) % 360;
+
+
+    const x =
+        50 +
+        (
+            relativeAz > 180
+            ? relativeAz - 360
+            : relativeAz
+        )
+        / 180
+        * 45;
+
+
+    const y =
+        88 -
+        alt * 0.78;
+
+
+    dsoElement.style.left =
+        x + "%";
+
+    dsoElement.style.top =
+        y + "%";
+
+
+    /*
+       撮影判定
+    */
+
+    if (alt >= 30) {
+
+        statusElement.textContent =
+            object.name
+            +
+            "　撮影しやすい高度";
+
+        statusElement.className =
+            "status good";
+
+    }
+
+    else if (alt > 10) {
+
+        statusElement.textContent =
+            object.name
+            +
+            "　低空・撮影可能";
+
+        statusElement.className =
+            "status";
+
+    }
+
+    else {
+
+        statusElement.textContent =
+            object.name
+            +
+            "　地平線付近";
+
+        statusElement.className =
+            "status bad";
+
+    }
+
+}
+
+
+/* =================================================
+   DRAW SKY
+================================================= */
+
+function updateSky() {
+
+    const now =
+        new Date();
+
+
+    timeElement.textContent =
+        now.toLocaleTimeString(
+            "ja-JP"
+        );
+
+
+    if (
+        latitude === null ||
+        longitude === null
+    ) {
+        return;
+    }
+
+
+    starElements.forEach(
+
+        function(star, index) {
+
+            drawStar(
+                star,
+                index,
+                now
+            );
+
+        }
+
+    );
+
+
+    drawTarget(now);
+
+}
+
+
+/* =================================================
+   LOCATION
+================================================= */
+
+function getLocation() {
+
+    if (
+        !navigator.geolocation
+    ) {
+
+        statusElement.textContent =
+            "位置情報に対応していません";
+
+        return;
+
+    }
+
 
     navigator.geolocation.getCurrentPosition(
 
         function(position) {
 
-            const latitude =
+            latitude =
                 position.coords.latitude;
 
-            const longitude =
+            longitude =
                 position.coords.longitude;
 
+
             latitudeElement.textContent =
-                latitude.toFixed(5) + "°";
+                latitude.toFixed(5)
+                + "°";
+
 
             longitudeElement.textContent =
-                longitude.toFixed(5) + "°";
+                longitude.toFixed(5)
+                + "°";
 
-            statusElement.textContent =
-                "位置情報取得済み";
 
-            messageElement.textContent =
-                "位置情報を取得しました";
+            updateSky();
 
         },
 
-        function(error) {
 
-            messageElement.textContent =
-                "位置情報を取得できませんでした";
+        function() {
 
             statusElement.textContent =
-                "位置情報エラー";
+                "位置情報を取得できません";
+
+            statusElement.className =
+                "status bad";
 
         },
 
         {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
+
+            enableHighAccuracy:
+                true,
+
+            timeout:
+                10000,
+
+            maximumAge:
+                0
+
         }
 
     );
+
 }
 
 
-/* ==================================================
-   DEVICE ORIENTATION
-================================================== */
-
-function startOrientation() {
-
-    if (
-        typeof DeviceOrientationEvent !==
-        "undefined" &&
-        typeof DeviceOrientationEvent
-            .requestPermission ===
-            "function"
-    ) {
-
-        DeviceOrientationEvent
-            .requestPermission()
-            .then(function(permission) {
-
-                if (
-                    permission === "granted"
-                ) {
-
-                    window.addEventListener(
-                        "deviceorientation",
-                        handleOrientation,
-                        true
-                    );
-
-                    messageElement.textContent =
-                        "方位センサーを有効にしました";
-
-                } else {
-
-                    messageElement.textContent =
-                        "方位センサーの許可が必要です";
-
-                }
-
-            })
-            .catch(function() {
-
-                messageElement.textContent =
-                    "方位センサーを利用できません";
-
-            });
-
-    } else {
-
-        window.addEventListener(
-            "deviceorientation",
-            handleOrientation,
-            true
-        );
-
-        messageElement.textContent =
-            "方位センサーを開始しました";
-
-    }
-}
-
-
-/* ==================================================
-   HEADING
-================================================== */
+/* =================================================
+   ORIENTATION
+================================================= */
 
 function handleOrientation(event) {
 
-    let heading = null;
+    let value =
+        null;
 
 
     /*
-       iPhone Safari
-       compass heading
+       iPhone
     */
 
     if (
-        event.webkitCompassHeading !==
-        undefined &&
-        event.webkitCompassHeading !==
-        null
+        event.webkitCompassHeading
+        !== undefined
     ) {
 
-        heading =
+        value =
             event.webkitCompassHeading;
 
     }
 
     /*
-       Other browsers
+       Other devices
     */
 
     else if (
-        event.alpha !==
-        null
+        event.alpha !== null
     ) {
 
-        heading =
+        value =
             360 - event.alpha;
 
     }
 
 
-    if (heading === null) {
+    if (value === null) {
         return;
     }
 
 
     heading =
-        ((heading % 360) + 360) % 360;
+        (
+            value + 360
+        ) % 360;
 
 
     headingElement.textContent =
-        heading.toFixed(0) + "°";
+        heading.toFixed(0)
+        + "°";
 
 
-    moveSky(heading);
-
-}
-
-
-/* ==================================================
-   SKY ROTATION
-================================================== */
-
-function moveSky(heading) {
-
-    /*
-       星空をスマートフォンの
-       向きに合わせて動かす
-    */
-
-    const offset =
-        heading * 0.35;
-
-
-    stars.forEach(function(star) {
-
-        let x =
-            star.x - offset;
-
-        while (x < -10) {
-            x += 110;
-        }
-
-        while (x > 110) {
-            x -= 110;
-        }
-
-        star.element.style.left =
-            x + "%";
-
-    });
+    updateSky();
 
 }
 
 
-/* ==================================================
-   START
-================================================== */
+/* =================================================
+   START SENSOR
+================================================= */
 
-function startSensors() {
+async function startSensors() {
 
-    messageElement.textContent =
+    statusElement.textContent =
         "センサーを起動しています…";
 
 
     getLocation();
 
 
-    startOrientation();
+    /*
+       iPhone permission
+    */
+
+    if (
+        typeof DeviceOrientationEvent
+        !== "undefined"
+        &&
+        typeof DeviceOrientationEvent
+            .requestPermission
+        === "function"
+    ) {
+
+        try {
+
+            const permission =
+                await
+                DeviceOrientationEvent
+                .requestPermission();
+
+
+            if (
+                permission ===
+                "granted"
+            ) {
+
+                window.addEventListener(
+
+                    "deviceorientation",
+
+                    handleOrientation,
+
+                    true
+
+                );
+
+            }
+
+        }
+
+        catch {
+
+            statusElement.textContent =
+                "方位センサーの許可が必要です";
+
+        }
+
+    }
+
+    else {
+
+        window.addEventListener(
+
+            "deviceorientation",
+
+            handleOrientation,
+
+            true
+
+        );
+
+    }
 
 }
+
+
+/* =================================================
+   TARGET CHANGE
+================================================= */
+
+targetSelect.addEventListener(
+
+    "change",
+
+    function() {
+
+        selectedTarget =
+            targetSelect.value;
+
+        updateSky();
+
+    }
+
+);
+
+
+/* =================================================
+   MAIN LOOP
+================================================= */
+
+setInterval(
+
+    updateSky,
+
+    1000
+
+);
+
+updateSky();
 
 </script>
 
