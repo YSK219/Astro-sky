@@ -4,24 +4,349 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Astro-sky</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 25px;
+    background: #02030a;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.card {
+    background: #111625;
+    padding: 18px;
+    margin-top: 15px;
+    border-radius: 12px;
+}
+
+.value {
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+.label {
+    color: #8994ac;
+    font-size: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    border: 0;
+    border-radius: 10px;
+    background: #315cff;
+    color: white;
+    font-size: 16px;
+}
+
+#status {
+    text-align: center;
+    color: #9ba6bd;
+    margin-top: 15px;
+}
+</style>
 </head>
-<body style="background:#02030a;color:white;font-family:sans-serif;text-align:center;padding:40px">
+
+<body>
 
 <h1>🌌 Astro-sky</h1>
 
-<h2>第3版テスト</h2>
+<div class="card">
+    <div class="label">現在時刻</div>
+    <div class="value" id="time">--</div>
+</div>
 
-<p id="status">Astro-skyは正常に動作しています</p>
+<div class="card">
+    <div class="label">現在位置</div>
+    <div class="value" id="location">未取得</div>
+</div>
 
-<button onclick="test()">
-センサー準備
+<div class="card">
+    <div class="label">M31 アンドロメダ銀河</div>
+    <div class="value">
+        高度：<span id="altitude">--</span>
+    </div>
+    <div class="value">
+        方位：<span id="azimuth">--</span>
+    </div>
+</div>
+
+<button onclick="start()">
+📍 現在地を取得
 </button>
 
+<div id="status">
+準備完了
+</div>
+
+
 <script>
-function test() {
-    document.getElementById("status").textContent =
-        "正常にJavaScriptが動作しています！";
+
+/* ============================
+   M31
+   赤経 0.712時間
+   赤緯 +41.27°
+============================ */
+
+const M31_RA = 0.712;
+const M31_DEC = 41.27;
+
+
+/* ============================
+   現在時刻
+============================ */
+
+function updateTime() {
+
+    const now = new Date();
+
+    document.getElementById("time")
+        .textContent =
+        now.toLocaleString("ja-JP");
 }
+
+setInterval(updateTime, 1000);
+updateTime();
+
+
+/* ============================
+   Julian Date
+============================ */
+
+function julianDate(date) {
+
+    return date.getTime()
+        / 86400000
+        + 2440587.5;
+}
+
+
+/* ============================
+   GMST
+============================ */
+
+function getGMST(date) {
+
+    const jd =
+        julianDate(date);
+
+    const T =
+        (jd - 2451545.0)
+        / 36525.0;
+
+    let gmst =
+        280.46061837
+        +
+        360.98564736629
+        *
+        (jd - 2451545.0)
+        +
+        0.000387933 * T * T
+        -
+        T * T * T / 38710000;
+
+    gmst =
+        ((gmst % 360) + 360)
+        % 360;
+
+    return gmst;
+}
+
+
+/* ============================
+   赤経赤緯 → 高度方位
+============================ */
+
+function calculateAltAz(
+    raHours,
+    decDeg,
+    latitude,
+    longitude,
+    date
+) {
+
+    const lst =
+        (
+            getGMST(date)
+            + longitude
+        ) / 15;
+
+    const hourAngle =
+        lst - raHours;
+
+    const H =
+        hourAngle * 15;
+
+    const lat =
+        latitude *
+        Math.PI / 180;
+
+    const dec =
+        decDeg *
+        Math.PI / 180;
+
+    const h =
+        H *
+        Math.PI / 180;
+
+
+    const sinAltitude =
+        Math.sin(lat)
+        *
+        Math.sin(dec)
+        +
+        Math.cos(lat)
+        *
+        Math.cos(dec)
+        *
+        Math.cos(h);
+
+
+    const altitude =
+        Math.asin(
+            sinAltitude
+        )
+        *
+        180 / Math.PI;
+
+
+    let azimuth =
+        Math.atan2(
+
+            Math.sin(h),
+
+            Math.cos(h)
+            *
+            Math.sin(lat)
+            -
+            Math.tan(dec)
+            *
+            Math.cos(lat)
+
+        )
+        *
+        180 / Math.PI;
+
+
+    azimuth =
+        (azimuth + 180)
+        % 360;
+
+
+    return {
+        altitude,
+        azimuth
+    };
+}
+
+
+/* ============================
+   GPS
+============================ */
+
+function start() {
+
+    const status =
+        document.getElementById("status");
+
+    status.textContent =
+        "位置情報を取得しています…";
+
+
+    if (!navigator.geolocation) {
+
+        status.textContent =
+            "このブラウザでは位置情報を利用できません";
+
+        return;
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            document.getElementById(
+                "location"
+            ).textContent =
+
+                latitude.toFixed(5)
+                + "°, "
+                +
+                longitude.toFixed(5)
+                + "°";
+
+
+            const result =
+                calculateAltAz(
+
+                    M31_RA,
+                    M31_DEC,
+
+                    latitude,
+                    longitude,
+
+                    new Date()
+
+                );
+
+
+            document.getElementById(
+                "altitude"
+            ).textContent =
+
+                result.altitude.toFixed(1)
+                + "°";
+
+
+            document.getElementById(
+                "azimuth"
+            ).textContent =
+
+                result.azimuth.toFixed(1)
+                + "°";
+
+
+            status.textContent =
+                "M31の現在位置を計算しました";
+
+
+        },
+
+        function(error) {
+
+            status.textContent =
+                "位置情報を取得できませんでした";
+
+        },
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 0
+
+        }
+
+    );
+}
+
 </script>
 
 </body>
