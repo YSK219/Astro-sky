@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astro-sky</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #02030a;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+header {
+    padding: 18px 20px;
+    background: #080b16;
+    border-bottom: 1px solid #1d2438;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.subtitle {
+    color: #8f9bb5;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+#sky {
+    position: relative;
+    height: 65vh;
+    min-height: 420px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 30%, #101a38 0%, #050817 45%, #010207 100%);
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px white;
+}
+
+.info {
+    padding: 18px;
+    background: #080b16;
+    border-top: 1px solid #1d2438;
+}
+
+.info h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.card {
+    padding: 12px;
+    background: #111625;
+    border-radius: 10px;
+}
+
+.label {
+    font-size: 11px;
+    color: #8994ac;
+}
+
+.value {
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: 0;
+    border-radius: 10px;
+    background: #315cff;
+    color: white;
+    font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌌 Astro-sky</h1>
+    <div class="subtitle">Astrophotography Sky Guide</div>
+</header>
+
+<div id="sky"></div>
+
+<div class="info">
+    <h2>撮影情報</h2>
+
+    <div class="data">
+        <div class="card">
+            <div class="label">現在時刻</div>
+            <div class="value" id="time">--:--:--</div>
+        </div>
+
+        <div class="card">
+            <div class="label">方位</div>
+            <div class="value" id="direction">--°</div>
+        </div>
+
+        <div class="card">
+            <div class="label">高度</div>
+            <div class="value" id="altitude">--°</div>
+        </div>
+
+        <div class="card">
+            <div class="label">対象天体</div>
+            <div class="value">M31 アンドロメダ銀河</div>
+        </div>
+    </div>
+
+    <button onclick="location.reload()">
+        🔄 星空を更新
+    </button>
+</div>
+
+<script>
+
+const sky = document.getElementById("sky");
+
+for (let i = 0; i < 180; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    const size = Math.random() * 2 + 1;
+
+    star.style.width = size + "px";
+    star.style.height = size + "px";
+
+    star.style.opacity = Math.random() * 0.8 + 0.2;
+
+    sky.appendChild(star);
+}
+
+function updateTime() {
+
+    const now = new Date();
+
+    document.getElementById("time").textContent =
+        now.toLocaleTimeString("ja-JP");
+
+}
+
+setInterval(updateTime, 1000);
+
+updateTime();
+
+</script>
+
+</body>
+</html>
